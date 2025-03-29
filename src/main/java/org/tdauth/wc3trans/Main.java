@@ -15,6 +15,7 @@ public class Main {
             for (int i = 1; i < args.length; i++) {
                 War3mapWts target = new War3mapWts(args[i]);
                 source.updateTarget(target);
+                target.writeIntoFile(args[i]);
             }
         } catch (IOException e) {
             System.err.println(e.getMessage());

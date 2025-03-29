@@ -96,6 +96,7 @@ public class War3mapWts {
     }
 
     public void writeIntoFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException {
+        System.out.println("Writing file " + filePath);
         PrintWriter writer = new PrintWriter(filePath, "UTF-8");
         boolean writtenLine = false;
 
@@ -124,6 +125,8 @@ public class War3mapWts {
         writer.print(EOL);
 
         writer.close();
+
+        System.out.println("Written file " + filePath);
     }
 
     public static void main(String[] args) {
