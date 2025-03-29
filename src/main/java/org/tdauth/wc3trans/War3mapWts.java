@@ -1,6 +1,7 @@
 package org.tdauth.wc3trans;
 
 import java.io.*;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -130,16 +131,10 @@ public class War3mapWts {
     }
 
     public static void main(String[] args) {
-        try {
-            final String sourceFilePath = "C:\\Users\\Tamino\\Documents\\Projekte\\wowr\\wowr.w3x\\war3map.wts";
-            final String targetFilePath = "C:\\Users\\Tamino\\Documents\\Projekte\\wowr\\wowr.w3x\\_Locales\\deDE.w3mod\\war3map.wts";
-            War3mapWts source = new War3mapWts(sourceFilePath);
-            War3mapWts target = new War3mapWts(targetFilePath);
-            source.updateTarget(target);
-            target.writeIntoFile(targetFilePath);
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-            System.exit(1);
-        }
+        final String mapDir = "C:\\Users\\Tamino\\Documents\\Projekte\\wowr\\wowr.w3x";
+        final String sourceFilePath = mapDir + "\\war3map.wts";
+        final String targetFilePath = mapDir +  "\\_Locales\\deDE.w3mod\\war3map.wts";
+
+        Main.main(new String[] { sourceFilePath, targetFilePath });
     }
 }
