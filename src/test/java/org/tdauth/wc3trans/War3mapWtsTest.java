@@ -28,7 +28,7 @@ class War3mapWtsTest {
 
         assertEquals(
                 """
-                STRING 0\r
+                ﻿STRING 0\r
                 // New comment\r
                 {\r
                 Same text.\r

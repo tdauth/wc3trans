@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
  */
 public class War3mapWts {
     private static final String UTF8_BOM = "\uFEFF";
+    private static final String EOL = "\r\n";
     private static final Pattern ID_PATTERN = Pattern.compile("\\s(\\d+)");
 
     public final Map<Long, StringEntry> entries = new HashMap<>();
@@ -49,6 +50,10 @@ public class War3mapWts {
                         current = null;
                     }
                 } else if (current != null) {
+                    if (current.text.length() > 0) {
+                        current.text += EOL;
+                    }
+
                     current.text += line;
                 }
 
@@ -96,18 +101,27 @@ public class War3mapWts {
 
         for (var e : entries.entrySet()) {
             if (writtenLine) {
-                writer.println();
+                writer.print(EOL);
+            } else {
+                writer.print(UTF8_BOM);
             }
 
-            writer.println("STRING " + e.getKey());
-            writer.println("//" + e.getValue().comment);
-            writer.println("{");
-            writer.println(e.getValue().text);
-            writer.println("}");
+            writer.print("STRING " + e.getKey());
+            writer.print(EOL);
+            if (e.getValue().comment.length() > 0) {
+                writer.print("//" + e.getValue().comment);
+                writer.print(EOL);
+            }
+            writer.print("{");
+            writer.print(EOL);
+            writer.print(e.getValue().text);
+            writer.print(EOL);
+            writer.print("}");
+            writer.print(EOL);
             writtenLine = true;
         }
 
-        writer.println();
+        writer.print(EOL);
 
         writer.close();
     }
