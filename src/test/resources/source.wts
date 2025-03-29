@@ -1,0 +1,11 @@
+STRING 0
+// New comment
+{
+Same text.
+}
+
+STRING 1
+// New entry
+{
+New text.
+}
