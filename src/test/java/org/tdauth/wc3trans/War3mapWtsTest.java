@@ -4,7 +4,8 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class War3mapWtsTest {
 
@@ -40,6 +41,6 @@ class War3mapWtsTest {
                 New text.\r
                 }\r
                 \r
-                """,  new String(Files.readAllBytes(Path.of("target/out.wts")), "UTF-8"));
+                """, Files.readString(Path.of("target/out.wts")));
     }
 }

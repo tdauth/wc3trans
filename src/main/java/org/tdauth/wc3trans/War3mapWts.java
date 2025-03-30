@@ -1,7 +1,7 @@
 package org.tdauth.wc3trans;
 
 import java.io.*;
-import java.util.Arrays;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -96,38 +96,39 @@ public class War3mapWts {
         System.out.println("Removed " + removed);
     }
 
-    public void writeIntoFile(String filePath) throws FileNotFoundException, UnsupportedEncodingException {
+    public void writeIntoFile(String filePath) throws IOException {
         System.out.println("Writing file " + filePath);
-        PrintWriter writer = new PrintWriter(filePath, "UTF-8");
-        boolean writtenLine = false;
+        try (OutputStream os = new FileOutputStream(filePath)) {
+            try (PrintWriter writer = new PrintWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8))) {
+                boolean writtenLine = false;
 
-        for (var e : entries.entrySet()) {
-            if (writtenLine) {
-                writer.print(EOL);
-            } else {
-                writer.print(UTF8_BOM);
-            }
+                for (var e : entries.entrySet()) {
+                    if (writtenLine) {
+                        writer.print(EOL);
+                    } else {
+                        writer.print(UTF8_BOM);
+                    }
 
-            writer.print("STRING " + e.getKey());
-            writer.print(EOL);
-            if (e.getValue().comment.length() > 0) {
-                writer.print("//" + e.getValue().comment);
+                    writer.print("STRING " + e.getKey());
+                    writer.print(EOL);
+                    if (e.getValue().comment.length() > 0) {
+                        writer.print("//" + e.getValue().comment);
+                        writer.print(EOL);
+                    }
+                    writer.print("{");
+                    writer.print(EOL);
+                    writer.print(e.getValue().text);
+                    writer.print(EOL);
+                    writer.print("}");
+                    writer.print(EOL);
+                    writtenLine = true;
+                }
+
                 writer.print(EOL);
+
+                System.out.println("Written file " + filePath);
             }
-            writer.print("{");
-            writer.print(EOL);
-            writer.print(e.getValue().text);
-            writer.print(EOL);
-            writer.print("}");
-            writer.print(EOL);
-            writtenLine = true;
         }
-
-        writer.print(EOL);
-
-        writer.close();
-
-        System.out.println("Written file " + filePath);
     }
 
     public static void main(String[] args) {
