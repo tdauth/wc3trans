@@ -38,7 +38,7 @@ Alter text.
 which is outdated by now, you can use this tool to update it:
 
 ```
-java -jar wc3trans.jar war3map.wts _Locales\deDE.w3mod\war3map.wts
+java -Dfile.encoding=utf8 -jar wc3trans.jar war3map.wts _Locales\deDE.w3mod\war3map.wts
 ```
 
 It will automatically delete the old entry, add the new entry and update all comments resulting in
@@ -63,7 +63,7 @@ Obviously you still have to translate all English texts.
 You can use multiple target files at once:
 
 ```
-java -jar wc3trans.jar war3map.wts _Locales\deDE.w3mod\war3map.wts _Locales\frFR.w3mod\war3map.wts _Locales\plPL.w3mod\war3map.wts
+java -Dfile.encoding=utf8 -jar wc3trans.jar war3map.wts _Locales\deDE.w3mod\war3map.wts _Locales\frFR.w3mod\war3map.wts _Locales\plPL.w3mod\war3map.wts
 ```
 
 ## Build
