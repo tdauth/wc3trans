@@ -69,14 +69,25 @@ public class War3mapWts {
         long updated = 0L;
         long added = 0L;
         long removed = 0L;
+        long hotkeys = 0L;
         long translated = 0L;
+        long translatedNoHotkeys = 0L;
 
         for (var e : entries.entrySet()) {
             if (target.entries.containsKey(e.getKey())) {
                 target.entries.get(e.getKey()).comment = e.getValue().comment;
                 updated++;
+
+                if (e.getValue().comment.contains("Hotkey ")) {
+                    hotkeys++;
+                }
+
                 if (!target.entries.get(e.getKey()).text.equals(e.getValue().text)) {
                     translated++;
+
+                    if (!e.getValue().comment.contains("Hotkey ")) {
+                        translatedNoHotkeys++;
+                    }
                 }
             } else {
                 target.entries.put(e.getKey(), e.getValue());
@@ -98,9 +109,13 @@ public class War3mapWts {
         System.out.println("Added " + added);
         System.out.println("Updated " + updated);
         System.out.println("Removed " + removed);
+        System.out.println("Hotkeys " + hotkeys);
         System.out.println("Translated " + translated);
         long translatedPercentage = (long)((double)(translated) / (double)(entries.size()) * 100.0);
         System.out.println("Translated Percentage: " + translatedPercentage + " %");
+        System.out.println("Translated (not hotkeys) " + translatedNoHotkeys);
+        long translatedNoHotkeysPercentage = (long)((double)(translatedNoHotkeys) / (double)(entries.size()) * 100.0);
+        System.out.println("Translated Percentage (no hotkeys): " + translatedNoHotkeysPercentage + " %");
     }
 
     public void writeIntoFile(String filePath) throws IOException {
