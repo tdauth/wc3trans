@@ -114,7 +114,7 @@ public class War3mapWts {
         long translatedPercentage = (long)((double)(translated) / (double)(entries.size()) * 100.0);
         System.out.println("Translated Percentage: " + translatedPercentage + " %");
         System.out.println("Translated (not hotkeys) " + translatedNoHotkeys);
-        long translatedNoHotkeysPercentage = (long)((double)(translatedNoHotkeys) / (double)(entries.size()) * 100.0);
+        long translatedNoHotkeysPercentage = (long)((double)(translatedNoHotkeys) / (double)(entries.size() - hotkeys) * 100.0);
         System.out.println("Translated Percentage (no hotkeys): " + translatedNoHotkeysPercentage + " %");
     }
 
