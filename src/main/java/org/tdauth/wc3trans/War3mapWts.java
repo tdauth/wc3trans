@@ -69,11 +69,15 @@ public class War3mapWts {
         long updated = 0L;
         long added = 0L;
         long removed = 0L;
+        long translated = 0L;
 
         for (var e : entries.entrySet()) {
             if (target.entries.containsKey(e.getKey())) {
                 target.entries.get(e.getKey()).comment = e.getValue().comment;
                 updated++;
+                if (!target.entries.get(e.getKey()).text.equals(e.getValue().text)) {
+                    translated++;
+                }
             } else {
                 target.entries.put(e.getKey(), e.getValue());
                 added++;
@@ -94,6 +98,9 @@ public class War3mapWts {
         System.out.println("Added " + added);
         System.out.println("Updated " + updated);
         System.out.println("Removed " + removed);
+        System.out.println("Translated " + translated);
+        long translatedPercentage = (long)((double)(translated) / (double)(entries.size()) * 100.0);
+        System.out.println("Translated Percentage: " + translatedPercentage + " %");
     }
 
     public void writeIntoFile(String filePath) throws IOException {
