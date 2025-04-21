@@ -120,6 +120,7 @@ public class War3mapWts {
         System.out.println("Updated " + updated);
         System.out.println("Removed " + removed);
         System.out.println("Hotkeys " + hotkeys);
+        System.out.println("Editor Suffixes " + editorSuffixes);
         System.out.println("Translated " + translated);
         long translatedPercentage = (long)((double)(translated) / (double)(entries.size()) * 100.0);
         System.out.println("Translated Percentage: " + translatedPercentage + " %");
