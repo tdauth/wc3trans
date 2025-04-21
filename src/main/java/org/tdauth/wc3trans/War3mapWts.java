@@ -70,8 +70,10 @@ public class War3mapWts {
         long added = 0L;
         long removed = 0L;
         long hotkeys = 0L;
+        long editorSuffixes = 0L;
         long translated = 0L;
         long translatedNoHotkeys = 0L;
+        long translatedNoHotkeysAndNoEditorSuffixes = 0L;
 
         for (var e : entries.entrySet()) {
             if (target.entries.containsKey(e.getKey())) {
@@ -82,11 +84,19 @@ public class War3mapWts {
                     hotkeys++;
                 }
 
+                if (e.getValue().comment.contains("EditorSuffix")) {
+                    editorSuffixes++;
+                }
+
                 if (!target.entries.get(e.getKey()).text.equals(e.getValue().text)) {
                     translated++;
 
                     if (!e.getValue().comment.contains("Hotkey ")) {
                         translatedNoHotkeys++;
+
+                        if (!e.getValue().comment.contains("EditorSuffix")) {
+                            translatedNoHotkeysAndNoEditorSuffixes++;
+                        }
                     }
                 }
             } else {
@@ -116,6 +126,8 @@ public class War3mapWts {
         System.out.println("Translated (not hotkeys) " + translatedNoHotkeys);
         long translatedNoHotkeysPercentage = (long)((double)(translatedNoHotkeys) / (double)(entries.size() - hotkeys) * 100.0);
         System.out.println("Translated Percentage (no hotkeys): " + translatedNoHotkeysPercentage + " %");
+        long translatedNoHotkeysNoEditorSuffixesPercentage = (long)((double)(translatedNoHotkeysAndNoEditorSuffixes) / (double)(entries.size() - hotkeys - editorSuffixes) * 100.0);
+        System.out.println("Translated Percentage (no hotkeys and no editor suffixes): " + translatedNoHotkeysNoEditorSuffixesPercentage + " %");
     }
 
     public void writeIntoFile(String filePath) throws IOException {
