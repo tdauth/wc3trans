@@ -52,7 +52,7 @@ public class War3mapWts {
                         current = null;
                     }
                 } else if (current != null) {
-                    if (current.text.length() > 0) {
+                    if (!current.text.isEmpty()) {
                         current.text += EOL;
                     }
 
@@ -154,7 +154,7 @@ public class War3mapWts {
 
                     writer.print("STRING " + e.getKey());
                     writer.print(EOL);
-                    if (e.getValue().comment.length() > 0) {
+                    if (!e.getValue().comment.isEmpty()) {
                         writer.print("//" + e.getValue().comment);
                         writer.print(EOL);
                     }
