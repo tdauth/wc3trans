@@ -9,3 +9,9 @@ STRING 1
 {
 New text.
 }
+
+STRING 3
+// New entry
+{
+New text.
+}

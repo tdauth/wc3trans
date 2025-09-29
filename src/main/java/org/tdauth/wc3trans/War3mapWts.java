@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 /**
  * STRING 0
@@ -121,6 +122,12 @@ public class War3mapWts {
         System.out.println("Removed " + removed);
         System.out.println("Hotkeys " + hotkeys);
         System.out.println("Editor Suffixes " + editorSuffixes);
+        long totalNotShown = hotkeys + editorSuffixes;
+        System.out.println("Hotkeys and editor suffixes " + totalNotShown);
+        long notShownPercentage = (long)((double)(totalNotShown) / (double)(updated) * 100.0);
+        System.out.println("Hotkeys and editor suffixes percentage " + notShownPercentage + " %");
+        long totalWithoutHotkeysAndEditorSuffixes = updated - totalNotShown;
+        System.out.println("Total without hotkeys and editor suffixes " + totalWithoutHotkeysAndEditorSuffixes);
         System.out.println("Translated " + translated);
         long translatedPercentage = (long)((double)(translated) / (double)(entries.size()) * 100.0);
         System.out.println("Translated Percentage: " + translatedPercentage + " %");
@@ -137,7 +144,8 @@ public class War3mapWts {
             try (PrintWriter writer = new PrintWriter(new OutputStreamWriter(os, StandardCharsets.UTF_8))) {
                 boolean writtenLine = false;
 
-                for (var e : entries.entrySet()) {
+                // Write in the order of keys since the World Editor does the same.
+                for (var e : entries.entrySet().stream().sorted(Map.Entry.comparingByKey()).collect(Collectors.toUnmodifiableList())) {
                     if (writtenLine) {
                         writer.print(EOL);
                     } else {

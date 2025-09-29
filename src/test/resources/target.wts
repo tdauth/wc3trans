@@ -1,3 +1,9 @@
+STRING 3
+// Old entry
+{
+Old text.
+}
+
 STRING 0
 // Old comment
 {

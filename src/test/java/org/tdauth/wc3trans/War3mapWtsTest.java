@@ -15,7 +15,7 @@ class War3mapWtsTest {
         War3mapWts target = new War3mapWts("src/test/resources/target.wts");
         source.updateTarget(target);
 
-        assertEquals(2, target.entries.size());
+        assertEquals(3, target.entries.size());
         assertTrue(target.entries.containsKey(0L));
         assertEquals(0L, target.entries.get(0L).id);
         assertEquals(" New comment", target.entries.get(0L).comment);
@@ -24,6 +24,10 @@ class War3mapWtsTest {
         assertEquals(1L, target.entries.get(1L).id);
         assertEquals(" New entry", target.entries.get(1L).comment);
         assertEquals("New text.", target.entries.get(1L).text);
+        assertTrue(target.entries.containsKey(3L));
+        assertEquals(3L, target.entries.get(3L).id);
+        assertEquals(" New entry", target.entries.get(3L).comment);
+        assertEquals("Old text.", target.entries.get(3L).text);
 
         target.writeIntoFile("target/out.wts");
 
@@ -39,6 +43,12 @@ class War3mapWtsTest {
                 // New entry\r
                 {\r
                 New text.\r
+                }\r
+                \r
+                STRING 3\r
+                // New entry\r
+                {\r
+                Old text.\r
                 }\r
                 \r
                 """, Files.readString(Path.of("target/out.wts")));
