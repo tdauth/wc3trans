@@ -1,6 +1,12 @@
 package org.tdauth.wc3trans;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
@@ -48,6 +54,8 @@ public class War3mapWts {
                     // do nothing
                 } else if (line.startsWith("}")) {
                     if (current != null) {
+                        warnMaxStringLength(current.text);
+
                         entries.put(current.id, current);
                         current = null;
                     }
@@ -171,6 +179,12 @@ public class War3mapWts {
 
                 System.out.println("Written file " + filePath);
             }
+        }
+    }
+
+    private void warnMaxStringLength(String s) {
+        if (s.length() > 1023) {
+            System.err.println("Warning: String is longer than 1023 which might lead to a game crash when loading a save game:\n" + s);
         }
     }
 

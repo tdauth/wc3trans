@@ -3,13 +3,14 @@ package org.tdauth.wc3trans;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 class War3mapWtsTest {
 
-    @org.junit.jupiter.api.Test
+    @Test
     void updateTarget() throws IOException {
         War3mapWts source = new War3mapWts("src/test/resources/source.wts");
         War3mapWts target = new War3mapWts("src/test/resources/target.wts");
